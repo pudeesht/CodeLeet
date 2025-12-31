@@ -16,6 +16,9 @@ export default defineConfig({
           "*://www.leetcode.com/u/*", 
           "*://leetcode.com/contest/*",
           "*://www.leetcode.com/contest/*",
+          '*://leetcode.com/problems/*',
+          '*://www.leetcode.com/problems/*'
+
         ],
       },
     }),
