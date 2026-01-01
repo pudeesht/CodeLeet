@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import cssText from './styles.css?inline'; 
+import { attachInterceptor } from './interceptors';
+import MemeOverlay from './components/MemeOverlay';
+
+attachInterceptor();
 
 const MOUNT_ID = 'leetcode-detective-root';
 
@@ -21,5 +25,6 @@ shadow.append(appRoot);
 ReactDOM.createRoot(appRoot).render(
   <React.StrictMode>
     <App />
+    <MemeOverlay/>
   </React.StrictMode>,
 );

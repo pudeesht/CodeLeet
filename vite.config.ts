@@ -20,6 +20,7 @@ export default defineConfig({
           '*://www.leetcode.com/problems/*'
 
         ],
+        "run-at":"document-start"
       },
     }),
   ],
