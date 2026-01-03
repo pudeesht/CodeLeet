@@ -2,27 +2,29 @@ export function attachInterceptor() {
 
   // @ts-ignore
   const realWindow = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
-
-  console.log(" Detective: Interceptor Initiated on", realWindow === window ? "Standard Window" : "Unsafe Window");
-
   const originalFetch = realWindow.fetch;
 
   realWindow.fetch = async (...args: any[]) => {
     const [resource, config] = args;
 
     if (typeof resource === 'string' && resource.includes('/check/')) {
-      // console.log("DETECTED CHECK:", resource);
-      
       try {
         const response = await originalFetch(resource, config);
-        
         const clone = response.clone();
         
         clone.json().then((data: any) => {
-          //  console.log("Check Data:", data);
-           
-           if (data.state === 'SUCCESS') {
-             console.log(" JUDGEMENT COMPLETE:", data.status_msg);
+
+          if (data.state === 'SUCCESS') {
+             
+             const submissionId = String(data.submission_id || "");
+             
+             //ignore all the cases for "run" code
+             if (submissionId.includes("runcode")) {
+              //  console.log("Codeleet: Ignoring 'Run Code' result");
+               return; 
+             }
+
+            //  console.log("JUDGEMENT COMPLETE:", data.status_msg);
              
              realWindow.dispatchEvent(new CustomEvent('leetcode-submission', { 
                detail: { 
@@ -45,5 +47,3 @@ export function attachInterceptor() {
     return originalFetch(...args);
   };
 }
-
-

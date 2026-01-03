@@ -4,7 +4,7 @@ import { analyzeEvents, CheatReport } from './analysis';
 import FloatingButton from './components/FloatingButton';
 import ContestCard from './components/ContestCard';
 import detectiveLogo from '../assets/logo.png';
-import SettingsView from './components/settingsView';
+import SettingsView from './components/SettingsView';
 
 
 
