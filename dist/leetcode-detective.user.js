@@ -12625,7 +12625,7 @@
       "button",
       {
         onClick,
-        className: "fixed bottom-6 right-6 z-50 bg-gray-900 hover:bg-gray-800 text-white p-0 w-16 h-16 rounded-full shadow-2xl border-2 border-green-500 transition-transform hover:scale-110 flex items-center justify-center group overflow-hidden",
+        className: "fixed bottom-6 right-6 z-50 bg-gray-900 hover:bg-gray-800 text-white p-0 w-16 h-16 rounded-full shadow-2xl border-2 border-green-500 transition-transform hover:scale-110 flex items-center justify-center group overflow-hidden cursor-pointer",
         title: "Open LeetCode Detective",
         children: jsxRuntimeExports.jsx("img", { src: detectiveLogo, alt: "Logo", className: "w-full h-full object-cover" })
       }
@@ -12747,8 +12747,20 @@ jsxRuntimeExports.jsx(
           "button",
           {
             onClick: toggleOverlay,
-            className: `w-12 h-6 rounded-full transition-colors relative ${settings.overlayEnabled ? "bg-green-600" : "bg-gray-600"}`,
-            children: jsxRuntimeExports.jsx("div", { className: `w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${settings.overlayEnabled ? "left-7" : "left-1"}` })
+            role: "switch",
+            "aria-checked": settings.overlayEnabled,
+            className: `relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer
+        transition-colors duration-200
+        focus:outline-none focus:ring-2 focus:ring-green-500/40
+    ${settings.overlayEnabled ? "bg-green-600" : "bg-gray-700"}`,
+            children: jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: `absolute left-1 top-auto h-4 w-4 rounded-full bg-white
+          transition-transform duration-200
+      ${settings.overlayEnabled ? "translate-x-5" : "translate-x-0"}`
+              }
+            )
           }
         )
       ] }),
@@ -12761,8 +12773,20 @@ jsxRuntimeExports.jsx(
           "button",
           {
             onClick: toggleSound,
-            className: `w-12 h-6 rounded-full transition-colors relative ${settings.soundEnabled ? "bg-green-600" : "bg-gray-600"}`,
-            children: jsxRuntimeExports.jsx("div", { className: `w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${settings.soundEnabled ? "left-7" : "left-1"}` })
+            role: "switch",
+            "aria-checked": settings.soundEnabled,
+            className: `relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer
+        transition-colors duration-200
+        focus:outline-none focus:ring-2 focus:ring-green-500/40
+    ${settings.soundEnabled ? "bg-green-600" : "bg-gray-700"}`,
+            children: jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: `absolute left-1 top-auto h-4 w-4 rounded-full bg-white
+          transition-transform duration-200
+      ${settings.soundEnabled ? "translate-x-5" : "translate-x-0"}`
+              }
+            )
           }
         )
       ] }),
@@ -12828,10 +12852,16 @@ jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-3 rounded text-[10px] t
       try {
         const questions = await getContestQuestions(contestSlug);
         const results = {};
-        await Promise.all(questions.map(async (q) => {
-          const events = await getReplayEvents(username, contestSlug, q.titleSlug);
-          results[q.titleSlug] = analyzeEvents(events);
-        }));
+        await Promise.all(
+          questions.map(async (q) => {
+            const events = await getReplayEvents(
+              username,
+              contestSlug,
+              q.titleSlug
+            );
+            results[q.titleSlug] = analyzeEvents(events);
+          })
+        );
         setAnalysisResults(results);
       } catch (err) {
         console.error(err);
@@ -12840,55 +12870,94 @@ jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-3 rounded text-[10px] t
     };
     if (!username) return null;
     if (!isOpen) return jsxRuntimeExports.jsx(FloatingButton, { onClick: () => setIsOpen(true) });
-    return jsxRuntimeExports.jsx("div", { className: "fixed bottom-6 right-6 z-50 flex flex-col items-end animate-fade-in-up font-sans", children: jsxRuntimeExports.jsxs("div", { className: "bg-gray-900 text-white w-96 rounded-xl shadow-2xl border border-gray-700 flex flex-col overflow-hidden max-h-[80vh]", children: [
-jsxRuntimeExports.jsxs("div", { className: "bg-gray-800 p-4 border-b border-gray-700 flex justify-between items-center shrink-0", children: [
+    return jsxRuntimeExports.jsx("div", { className: "fixed bottom-6 right-6 z-50 flex flex-col items-end animate-fade-in-up font-sans", children: jsxRuntimeExports.jsxs("div", { className: "bg-gray-900/90 text-white w-[26rem] rounded-xl flex flex-col overflow-hidden max-h-[80vh] backdrop-blur-lg", children: [
+jsxRuntimeExports.jsxs("div", { className: "px-4 py-3 flex justify-between items-center shrink-0", children: [
 jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-full border border-gray-600 overflow-hidden", children: jsxRuntimeExports.jsx("img", { src: detectiveLogo, alt: "Logo", className: "w-full h-full object-cover" }) }),
-jsxRuntimeExports.jsxs("div", { children: [
-jsxRuntimeExports.jsx("h2", { className: "font-bold text-gray-100 text-sm leading-tight", children: "CodeLeet" }),
+jsxRuntimeExports.jsx("div", { className: "w-9 h-9 rounded-full overflow-hidden", children: jsxRuntimeExports.jsx(
+            "img",
+            {
+              src: detectiveLogo,
+              alt: "Logo",
+              className: "w-full h-full object-cover"
+            }
+          ) }),
+jsxRuntimeExports.jsxs("div", { className: "leading-tight flex flex-col", children: [
+jsxRuntimeExports.jsx("h2", { className: "font-xl mb-0 text-lg text-gray-100", children: "CodeLeet" }),
 jsxRuntimeExports.jsxs("p", { className: "text-xs text-green-400 font-mono", children: [
               "@",
               username
             ] })
           ] })
         ] }),
-jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
 jsxRuntimeExports.jsx(
             "button",
             {
               onClick: () => setActiveTab(activeTab === "scan" ? "settings" : "scan"),
-              className: `p-1.5 rounded transition-colors ${activeTab === "settings" ? "bg-green-600 text-white" : "text-gray-400 hover:text-white hover:bg-gray-700"}`,
               title: "Settings",
-              children: jsxRuntimeExports.jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: [
-jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" }),
-jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z" })
-              ] })
+              className: `w-9 h-9 flex items-center justify-center rounded-md transition cursor-pointer
+      ${activeTab === "settings" ? "bg-green-700 text-white" : "text-white hover:text-white hover:bg-gray-800 bg-green-500"}`,
+              children: jsxRuntimeExports.jsxs(
+                "svg",
+                {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  className: "h-5 w-5",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor",
+                  children: [
+jsxRuntimeExports.jsx(
+                      "path",
+                      {
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                        strokeWidth: 2,
+                        d: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                      }
+                    ),
+jsxRuntimeExports.jsx(
+                      "path",
+                      {
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                        strokeWidth: 2,
+                        d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      }
+                    )
+                  ]
+                }
+              )
             }
           ),
-jsxRuntimeExports.jsx("button", { onClick: () => setIsOpen(false), className: "text-gray-400 hover:text-white hover:bg-gray-700 p-1 rounded", children: "✕" })
+jsxRuntimeExports.jsx(
+            "button",
+            {
+              onClick: () => setIsOpen(false),
+              className: "w-9 h-9 flex items-center justify-center rounded-md text-white hover:text-white hover:bg-red-800 bg-red-500 transition cursor-pointer",
+              title: "Close",
+              children: "✕"
+            }
+          )
         ] })
       ] }),
-jsxRuntimeExports.jsx("div", { className: "p-4 overflow-y-auto flex-1", children: activeTab == "scan" ? jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
-jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-end mb-2", children: [
-jsxRuntimeExports.jsx("h3", { className: "text-xs font-bold text-gray-400 uppercase tracking-wider", children: "Contest History" }),
-            history.length > 0 && jsxRuntimeExports.jsxs("span", { className: "text-xs text-gray-500", children: [
-              history.length,
-              " found"
-            ] })
+jsxRuntimeExports.jsx("div", { className: "px-4 pb-4 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-gray-700/50 scrollbar-track-transparent", children: activeTab === "scan" ? jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+jsxRuntimeExports.jsxs("div", { className: "mb-4 space-y-2", children: [
+jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
+jsxRuntimeExports.jsx("h3", { className: "text-[11px] font-medium text-gray-400 uppercase tracking-wider", children: "Contest History" }),
+            history.length > 0 && jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500 font-mono", children: history.length })
           ] }),
 jsxRuntimeExports.jsx(
             "button",
             {
               onClick: handleScan,
               disabled: loading,
-              className: `w-full py-2 rounded font-bold text-sm transition-all shadow-lg 
-                  ${loading ? "bg-gray-700 text-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-500 text-white"}`,
-              children: loading ? "Processing..." : " Scan Last 5 Contests"
+              className: `w-full py-2 rounded-md text-sm font-medium transition cursor-pointer
+                ${loading ? "bg-gray-800 text-gray-500 cursor-not-allowed" : "bg-green-600 hover:bg-green-500 text-white"}`,
+              children: loading ? "Processing..." : "Scan Last 5 Contests"
             }
           )
         ] }),
-jsxRuntimeExports.jsx("div", { children: history.map((item) => jsxRuntimeExports.jsx(
+jsxRuntimeExports.jsx("div", { className: "space-y-2", children: history.map((item) => jsxRuntimeExports.jsx(
           ContestCard,
           {
             contest: item.contest,
@@ -12901,10 +12970,10 @@ jsxRuntimeExports.jsx("div", { children: history.map((item) => jsxRuntimeExports
           item.contest.titleSlug
         )) })
       ] }) : jsxRuntimeExports.jsx(SettingsView, {}) }),
-jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-2 text-center border-t border-gray-700 text-[10px] text-gray-500", children: "v1.1" })
+jsxRuntimeExports.jsx("div", { className: "px-3 py-2 text-center text-[10px] text-gray-500 font-mono", children: "CodeLeet • v1.1" })
     ] }) });
   }
-  const cssText = '.container{width:100%}@media(min-width:640px){.container{max-width:640px}}@media(min-width:768px){.container{max-width:768px}}@media(min-width:1024px){.container{max-width:1024px}}@media(min-width:1280px){.container{max-width:1280px}}@media(min-width:1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.bottom-6{bottom:1.5rem}.left-1{left:.25rem}.left-7{left:1.75rem}.right-6{right:1.5rem}.top-1{top:.25rem}.z-50{z-index:50}.z-\\[99999\\]{z-index:99999}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:.25rem}.mt-1{margin-top:.25rem}.mt-4{margin-top:1rem}.block{display:block}.inline{display:inline}.flex{display:flex}.h-10{height:2.5rem}.h-16{height:4rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.max-h-\\[80vh\\]{max-height:80vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-2\\/3{width:66.666667%}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-96{width:24rem}.w-full{width:100%}.max-w-\\[600px\\]{max-width:600px}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x: 1;--tw-scale-y: 1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-90{--tw-scale-x: .9;--tw-scale-y: .9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.animate-fade-in{animation:fadeIn .2s ease-out}@keyframes fadeInUp{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.animate-fade-in-up{animation:fadeInUp .3s ease-out}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.flex-col{flex-direction:column}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-l-2{border-left-width:2px}.border-t{border-top-width:1px}.border-gray-600{--tw-border-opacity: 1;border-color:rgb(75 85 99 / var(--tw-border-opacity, 1))}.border-gray-700{--tw-border-opacity: 1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-green-500{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.border-white\\/10{border-color:#ffffff1a}.bg-black\\/30{background-color:#0000004d}.bg-black\\/50{background-color:#00000080}.bg-black\\/60{background-color:#0009}.bg-blue-600{--tw-bg-opacity: 1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-600{--tw-bg-opacity: 1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity: 1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity: 1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity: 1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.object-cover{-o-object-fit:cover;object-fit:cover}.p-0{padding:0}.p-1{padding:.25rem}.p-1\\.5{padding:.375rem}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1\\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.py-0\\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-2{padding-bottom:.5rem}.pl-2{padding-left:.5rem}.pr-2{padding-right:.5rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.font-sans{font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"}.font-serif{font-family:ui-serif,Georgia,Cambria,Times New Roman,Times,serif}.text-5xl{font-size:3rem;line-height:1}.text-\\[10px\\]{font-size:10px}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-normal{letter-spacing:0em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-gray-100{--tw-text-opacity: 1;color:rgb(243 244 246 / var(--tw-text-opacity, 1))}.text-gray-200{--tw-text-opacity: 1;color:rgb(229 231 235 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity: 1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity: 1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-orange-400{--tw-text-opacity: 1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity: 1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-100{opacity:1}.shadow{--tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);--tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-2xl{--tw-shadow: 0 25px 50px -12px rgb(0 0 0 / .25);--tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);--tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.drop-shadow-\\[0_5px_5px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\]{--tw-drop-shadow: drop-shadow(0 5px 5px rgba(0,0,0,.8));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-sm{--tw-backdrop-blur: blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-500{transition-duration:.5s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}:host{font-family:sans-serif}.last\\:mb-0:last-child{margin-bottom:0}.hover\\:scale-110:hover{--tw-scale-x: 1.1;--tw-scale-y: 1.1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\\:border-gray-500:hover{--tw-border-opacity: 1;border-color:rgb(107 114 128 / var(--tw-border-opacity, 1))}.hover\\:bg-blue-500:hover{--tw-bg-opacity: 1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-700:hover{--tw-bg-opacity: 1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-800:hover{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.hover\\:bg-green-500:hover{--tw-bg-opacity: 1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.hover\\:text-green-400:hover{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.hover\\:text-white:hover{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.focus\\:border-green-500:focus{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}';
+  const cssText = '.container{width:100%}@media(min-width:640px){.container{max-width:640px}}@media(min-width:768px){.container{max-width:768px}}@media(min-width:1024px){.container{max-width:1024px}}@media(min-width:1280px){.container{max-width:1280px}}@media(min-width:1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.bottom-6{bottom:1.5rem}.left-1{left:.25rem}.right-6{right:1.5rem}.top-auto{top:auto}.z-50{z-index:50}.z-\\[99999\\]{z-index:99999}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:.25rem}.mt-1{margin-top:.25rem}.mt-4{margin-top:1rem}.block{display:block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.h-16{height:4rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-9{height:2.25rem}.h-full{height:100%}.max-h-\\[80vh\\]{max-height:80vh}.w-11{width:2.75rem}.w-16{width:4rem}.w-2\\/3{width:66.666667%}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-9{width:2.25rem}.w-\\[26rem\\]{width:26rem}.w-full{width:100%}.max-w-\\[600px\\]{max-width:600px}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.translate-x-0{--tw-translate-x: 0px;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-5{--tw-translate-x: 1.25rem;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-100{--tw-scale-x: 1;--tw-scale-y: 1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-90{--tw-scale-x: .9;--tw-scale-y: .9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.animate-fade-in{animation:fadeIn .2s ease-out}@keyframes fadeInUp{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.animate-fade-in-up{animation:fadeInUp .3s ease-out}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.flex-col{flex-direction:column}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem * var(--tw-space-y-reverse))}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-md{border-radius:.375rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-l-2{border-left-width:2px}.border-t{border-top-width:1px}.border-gray-600{--tw-border-opacity: 1;border-color:rgb(75 85 99 / var(--tw-border-opacity, 1))}.border-gray-700{--tw-border-opacity: 1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-green-500{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.border-white\\/10{border-color:#ffffff1a}.bg-black\\/30{background-color:#0000004d}.bg-black\\/50{background-color:#00000080}.bg-black\\/60{background-color:#0009}.bg-blue-600{--tw-bg-opacity: 1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity: 1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity: 1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-gray-900\\/90{background-color:#111827e6}.bg-green-500{--tw-bg-opacity: 1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity: 1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-green-700{--tw-bg-opacity: 1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}.bg-red-500{--tw-bg-opacity: 1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.object-cover{-o-object-fit:cover;object-fit:cover}.p-0{padding:0}.p-2{padding:.5rem}.p-3{padding:.75rem}.px-1\\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.pb-2{padding-bottom:.5rem}.pb-4{padding-bottom:1rem}.pl-2{padding-left:.5rem}.pr-2{padding-right:.5rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.font-sans{font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"}.font-serif{font-family:ui-serif,Georgia,Cambria,Times New Roman,Times,serif}.text-5xl{font-size:3rem;line-height:1}.text-\\[10px\\]{font-size:10px}.text-\\[11px\\]{font-size:11px}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-normal{letter-spacing:0em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-gray-100{--tw-text-opacity: 1;color:rgb(243 244 246 / var(--tw-text-opacity, 1))}.text-gray-200{--tw-text-opacity: 1;color:rgb(229 231 235 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity: 1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-orange-400{--tw-text-opacity: 1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity: 1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-100{opacity:1}.shadow{--tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);--tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-2xl{--tw-shadow: 0 25px 50px -12px rgb(0 0 0 / .25);--tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.drop-shadow-\\[0_5px_5px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\]{--tw-drop-shadow: drop-shadow(0 5px 5px rgba(0,0,0,.8));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-lg{--tw-backdrop-blur: blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur: blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-500{transition-duration:.5s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}:host{font-family:sans-serif}.last\\:mb-0:last-child{margin-bottom:0}.hover\\:scale-110:hover{--tw-scale-x: 1.1;--tw-scale-y: 1.1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\\:border-gray-500:hover{--tw-border-opacity: 1;border-color:rgb(107 114 128 / var(--tw-border-opacity, 1))}.hover\\:bg-blue-500:hover{--tw-bg-opacity: 1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-800:hover{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.hover\\:bg-green-500:hover{--tw-bg-opacity: 1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.hover\\:bg-red-800:hover{--tw-bg-opacity: 1;background-color:rgb(153 27 27 / var(--tw-bg-opacity, 1))}.hover\\:text-green-400:hover{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.hover\\:text-white:hover{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.focus\\:border-green-500:focus{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.focus\\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\\:ring-2:focus{--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow, 0 0 #0000)}.focus\\:ring-green-500\\/40:focus{--tw-ring-color: rgb(34 197 94 / .4)}';
   function attachInterceptor() {
     const realWindow = typeof unsafeWindow !== "undefined" ? unsafeWindow : window;
     const originalFetch = realWindow.fetch;
