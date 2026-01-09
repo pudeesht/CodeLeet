@@ -1,97 +1,176 @@
-import { useState, useEffect } from 'react';
-import { AppSettings, loadSettings, saveSettings } from '../settings';
-import { THEMES } from '../themes';
-
+import { useState } from "react";
+import { AppSettings, loadSettings, saveSettings } from "../settings";
+import { THEMES } from "../themes";
 
 export default function SettingsView() {
   const [settings, setSettings] = useState<AppSettings>(loadSettings());
 
-  const toggleOverlay = () => {
-    const newS = { ...settings, overlayEnabled: !settings.overlayEnabled };
+  const updateSettings = (newS: AppSettings) => {
     setSettings(newS);
     saveSettings(newS);
   };
-
-  const toggleSound = () => {
-    const newS = { ...settings, soundEnabled: !settings.soundEnabled };
-    setSettings(newS);
-    saveSettings(newS);
-  };
-
-
-  const handleThemeChange=(e:React.ChangeEvent<HTMLSelectElement>)=>{
-
-    const news={...settings, theme:e.target.value};
-
-    setSettings(news);
-    saveSettings(news);
-  }
-
-
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      
+    <div className="space-y-5 animate-fade-in">
       {/* Header */}
-      <div className="text-center pb-2 border-b border-gray-700">
-        <h3 className="text-gray-300 font-bold uppercase tracking-widest text-xs">Configuration</h3>
+      <div className="text-center">
+        <h3 className="text-[11px] font-bold tracking-widest uppercase text-gray-400">
+          Settings
+        </h3>
       </div>
 
-      {/* Toggle: Meme Overlay */}
-      <div className="flex justify-between items-center">
-        <div>
-          <div className="text-sm font-bold text-gray-200">Celebration Mode</div>
-          <div className="text-xs text-gray-500">Show GTA banner on submission</div>
-        </div>
-        <button 
-          onClick={toggleOverlay}
-          className={`w-12 h-6 rounded-full transition-colors relative ${settings.overlayEnabled ? 'bg-green-600' : 'bg-gray-600'}`}
+      {/* Appearance */}
+      <Section title="Appearance">
+        <SettingRow
+          title="Celebration Mode"
+          desc="Show GTA-style banner on submission"
         >
-          <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${settings.overlayEnabled ? 'left-7' : 'left-1'}`} />
-        </button>
-      </div>
+          <Toggle
+            enabled={settings.overlayEnabled}
+            onToggle={() =>
+              updateSettings({
+                ...settings,
+                overlayEnabled: !settings.overlayEnabled,
+              })
+            }
+          />
+        </SettingRow>
 
-      {/* Toggle: Sound */}
-      <div className="flex justify-between items-center">
-        <div>
-          <div className="text-sm font-bold text-gray-200">Sound Effects</div>
-          <div className="text-xs text-gray-500">Play Wasted/Mission Passed</div>
+        <SettingRow title="Sound Effects" desc="Play Wasted / Mission Passed">
+          <Toggle
+            enabled={settings.soundEnabled}
+            onToggle={() =>
+              updateSettings({
+                ...settings,
+                soundEnabled: !settings.soundEnabled,
+              })
+            }
+          />
+        </SettingRow>
+      </Section>
+
+      {/* Theme */}
+      <Section title="Theme">
+        <div className="space-y-1">
+          <select
+            value={settings.theme}
+            onChange={(e) =>
+              updateSettings({ ...settings, theme: e.target.value })
+            }
+            className="
+              w-full rounded-lg bg-gray-900
+              border border-gray-700
+              px-3 py-2 text-sm text-gray-200
+              focus:border-green-500 focus:outline-none
+              transition cursor-pointer
+            "
+          >
+            {Object.entries(THEMES).map(([key, theme]) => (
+              <option key={key} value={key}>
+                {theme.name}
+              </option>
+            ))}
+          </select>
+          <p className="text-[11px] text-gray-500">
+            Controls banner visuals and sound style
+          </p>
         </div>
-        <button 
-          onClick={toggleSound}
-          className={`w-12 h-6 rounded-full transition-colors relative ${settings.soundEnabled ? 'bg-green-600' : 'bg-gray-600'}`}
-        >
-          <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${settings.soundEnabled ? 'left-7' : 'left-1'}`} />
-        </button>
-      </div>
-
-
-
-      <div>
-        <div className="text-sm font-bold text-gray-200 mb-1">Visual Theme</div>
-        <select 
-          value={settings.theme}
-          onChange={handleThemeChange}
-          className="w-full bg-gray-800 text-white border border-gray-600 rounded p-2 text-sm focus:border-green-500 outline-none transition-colors"
-        >
-          {Object.entries(THEMES).map(([key, theme]) => (
-            <option key={key} value={key}>
-              {theme.name}
-            </option>
-          ))}
-        </select>
-        <div className="text-xs text-gray-500 mt-1">
-          Sets the banner style and sound effects.
-        </div>
-      </div>
-
-
+      </Section>
 
       {/* Info */}
-      <div className="bg-gray-800 p-3 rounded text-[10px] text-gray-400 mt-4 border border-gray-700">
-        Note: Settings are saved automatically to your browser.
+      <div
+        className="
+          rounded-lg border border-gray-700
+          bg-gray-900/60 px-3 py-2
+          text-[10px] text-gray-400
+        "
+      >
+        Settings are saved automatically to your browser.
       </div>
-
     </div>
+  );
+}
+
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className="
+        rounded-xl border border-gray-700
+        bg-gradient-to-br from-gray-900 to-gray-800
+        p-4 space-y-4
+      "
+    >
+      <div className="text-xs font-semibold text-gray-300 uppercase tracking-wide">
+        {title}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function SettingRow({
+  title,
+  desc,
+  children,
+}: {
+  title: string;
+  desc: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <div>
+        <div className="text-sm font-medium text-gray-200">{title}</div>
+        <div className="text-[11px] text-gray-500">{desc}</div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function Toggle({
+  enabled,
+  onToggle,
+}: {
+  enabled: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      role="switch"
+      aria-checked={enabled}
+      className={`
+        relative inline-flex h-7 w-12 items-center rounded-full
+        transition-all duration-300 ease-out
+        focus:outline-none focus:ring-2 focus:ring-green-500/40
+        ${
+          enabled
+            ? "bg-gradient-to-r from-green-500 to-emerald-600 shadow-[0_0_10px_rgba(16,185,129,0.6)]"
+            : "bg-gradient-to-r from-gray-700 to-gray-600"
+        }
+      `}
+    >
+      {/* Knob */}
+      <span
+        className={`
+          absolute left-1 flex h-5 w-5 items-center justify-center
+          rounded-full bg-white text-[10px] font-bold
+          shadow-md
+          transition-transform duration-300 ease-out cursor-pointer
+          ${
+            enabled
+              ? "translate-x-5 text-green-600"
+              : "translate-x-0 text-gray-400"
+          }
+        `}
+      ></span>
+    </button>
   );
 }

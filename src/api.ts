@@ -13,7 +13,6 @@ async function leetCodeQuery (query : string, variables:any){
     
     
     return response.json();
-
 }
 
 

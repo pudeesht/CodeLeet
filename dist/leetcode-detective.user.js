@@ -12625,58 +12625,100 @@
       "button",
       {
         onClick,
-        className: "fixed bottom-6 right-6 z-50 bg-gray-900 hover:bg-gray-800 text-white p-0 w-16 h-16 rounded-full shadow-2xl border-2 border-green-500 transition-transform hover:scale-110 flex items-center justify-center group overflow-hidden",
+        className: "fixed bottom-6 right-6 z-50 bg-gray-900 hover:bg-gray-800 text-white p-0 w-16 h-16 rounded-full shadow-2xl border-2 border-green-500 transition-transform hover:scale-110 flex items-center justify-center group overflow-hidden cursor-pointer",
         title: "Open LeetCode Detective",
         children: jsxRuntimeExports.jsx("img", { src: detectiveLogo, alt: "Logo", className: "w-full h-full object-cover" })
       }
     );
   }
-  function ContestCard({ contest, ranking, isExpanded, analyzing, results, onExpand }) {
+  function ContestCard({
+    contest,
+    ranking,
+    isExpanded,
+    analyzing,
+    results,
+    onExpand
+  }) {
     const pageNum = Math.ceil(ranking / 25);
     const replayUrl = `https://leetcode.com/contest/${contest.titleSlug}/ranking/${pageNum}/?region=global_v2`;
-    return jsxRuntimeExports.jsxs("div", { className: "bg-gray-800 rounded-lg border border-gray-700 overflow-hidden shadow-sm transition-all hover:border-gray-500 mb-3 last:mb-0", children: [
-jsxRuntimeExports.jsxs("div", { className: "p-3 flex justify-between items-center", children: [
-jsxRuntimeExports.jsx(
-          "div",
-          {
-            className: "cursor-pointer hover:text-green-400 transition-colors flex-1 pr-2",
-            onClick: onExpand,
-            children: jsxRuntimeExports.jsx("span", { className: "font-bold text-sm text-gray-200 block truncate", children: contest.title })
-          }
-        ),
-jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-jsxRuntimeExports.jsxs("span", { className: "text-xs bg-black/30 px-2 py-1 rounded text-gray-400 font-mono", children: [
-            "#",
-            ranking
-          ] }),
-jsxRuntimeExports.jsx(
-            "a",
+    return jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "\r\n        relative mb-3 overflow-hidden rounded-xl\r\n        bg-gradient-to-br from-gray-900 to-gray-800\r\n        border border-gray-700/60\r\n        shadow-sm hover:shadow-md\r\n        transition-all duration-200\r\n      ",
+        children: [
+jsxRuntimeExports.jsx("div", { className: "absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-green-400/80 to-blue-500/80" }),
+jsxRuntimeExports.jsxs(
+            "div",
             {
-              href: replayUrl,
-              target: "_blank",
-              rel: "noreferrer",
-              className: "text-xs bg-blue-600 hover:bg-blue-500 text-white h-6 w-6 flex items-center justify-center rounded transition-colors",
-              title: "Watch Replay",
-              onClick: (e) => e.stopPropagation(),
-              children: "📺"
+              onClick: onExpand,
+              className: "\r\n          cursor-pointer px-4 py-3 pl-5\r\n          flex items-center justify-between\r\n          hover:bg-white/[0.03] transition\r\n        ",
+              children: [
+jsxRuntimeExports.jsxs("div", { className: "flex-1 pr-2", children: [
+jsxRuntimeExports.jsx("div", { className: "text-sm font-semibold text-gray-200 truncate", children: contest.title }),
+jsxRuntimeExports.jsx("div", { className: "text-[11px] text-gray-400", children: "Global Ranking" })
+                ] }),
+jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+jsxRuntimeExports.jsxs("span", { className: "text-xs font-mono px-2 py-0.5 rounded bg-black/40 text-gray-300", children: [
+                    "#",
+                    ranking
+                  ] }),
+jsxRuntimeExports.jsx(
+                    "a",
+                    {
+                      href: replayUrl,
+                      target: "_blank",
+                      rel: "noreferrer",
+                      onClick: (e) => e.stopPropagation(),
+                      className: "\r\n              h-7 w-7 rounded-full\r\n              bg-blue-600/80 hover:bg-blue-500\r\n              flex items-center justify-center\r\n              text-white text-xs\r\n              transition\r\n            ",
+                      title: "View Contest Ranking",
+                      children: "▶"
+                    }
+                  )
+                ] })
+              ]
             }
-          )
-        ] })
-      ] }),
-      isExpanded && jsxRuntimeExports.jsx("div", { className: "bg-black/50 p-3 border-t border-gray-700 animate-fade-in", children: analyzing ? jsxRuntimeExports.jsxs("div", { className: "text-center text-xs text-gray-400 py-2 flex items-center justify-center gap-2", children: [
+          ),
+          isExpanded && jsxRuntimeExports.jsx("div", { className: "border-t border-gray-700/60 bg-black/40 px-4 py-3 pl-5 animate-fade-in", children: analyzing ? jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-center gap-2 text-xs text-gray-400 py-2", children: [
 jsxRuntimeExports.jsx("span", { className: "animate-spin", children: "⏳" }),
-        " Analyzing Keystrokes..."
-      ] }) : Object.keys(results).length > 0 ? Object.entries(results).map(([qTitle, report]) => jsxRuntimeExports.jsxs("div", { className: "mb-3 last:mb-0", children: [
-jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center text-xs font-bold", children: [
-jsxRuntimeExports.jsx("span", { className: "text-gray-300 w-2/3 truncate", title: qTitle, children: qTitle }),
-jsxRuntimeExports.jsx("span", { className: `${report.color} bg-gray-900 px-1.5 py-0.5 rounded border border-gray-700 whitespace-nowrap`, children: report.label })
-        ] }),
-        report.details.length > 0 && jsxRuntimeExports.jsx("div", { className: "mt-1 pl-2 border-l-2 border-gray-700 ml-1", children: report.details.map((d, i) => jsxRuntimeExports.jsxs("div", { className: "text-[10px] text-gray-400 leading-relaxed", children: [
-          "• ",
-          d
-        ] }, i)) })
-      ] }, qTitle)) : jsxRuntimeExports.jsx("div", { className: "text-center text-xs text-gray-500", children: "No submission data found." }) })
-    ] });
+            "Analyzing keystrokes…"
+          ] }) : Object.keys(results).length > 0 ? jsxRuntimeExports.jsx("div", { className: "space-y-3", children: Object.entries(results).map(([qTitle, report]) => jsxRuntimeExports.jsxs("div", { children: [
+jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between gap-2", children: [
+jsxRuntimeExports.jsx(
+                "span",
+                {
+                  className: "text-xs font-medium text-gray-300 truncate",
+                  title: qTitle,
+                  children: qTitle
+                }
+              ),
+jsxRuntimeExports.jsx(
+                "span",
+                {
+                  className: `
+                        text-[10px] px-2 py-0.5 rounded-full
+                        border border-gray-700
+                        bg-gray-900
+                        ${report.color}
+                      `,
+                  children: report.label
+                }
+              )
+            ] }),
+            report.details.length > 0 && jsxRuntimeExports.jsx("div", { className: "mt-1 ml-2 pl-2 border-l border-gray-700 space-y-0.5", children: report.details.map((d, i) => jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: "text-[10px] text-gray-400 leading-snug",
+                children: [
+                  "• ",
+                  d
+                ]
+              },
+              i
+            )) })
+          ] }, qTitle)) }) : jsxRuntimeExports.jsx("div", { className: "text-center text-xs text-gray-500 py-2", children: "No submission data found" }) })
+        ]
+      }
+    );
   }
   const DEFAULT_SETTINGS = {
     overlayEnabled: true,
@@ -12721,66 +12763,120 @@ jsxRuntimeExports.jsx("span", { className: `${report.color} bg-gray-900 px-1.5 p
   const DEFAULT_THEME = "gta";
   function SettingsView() {
     const [settings, setSettings] = reactExports.useState(loadSettings());
-    const toggleOverlay = () => {
-      const newS = { ...settings, overlayEnabled: !settings.overlayEnabled };
+    const updateSettings = (newS) => {
       setSettings(newS);
       saveSettings(newS);
     };
-    const toggleSound = () => {
-      const newS = { ...settings, soundEnabled: !settings.soundEnabled };
-      setSettings(newS);
-      saveSettings(newS);
-    };
-    const handleThemeChange = (e) => {
-      const news = { ...settings, theme: e.target.value };
-      setSettings(news);
-      saveSettings(news);
-    };
-    return jsxRuntimeExports.jsxs("div", { className: "space-y-6 animate-fade-in", children: [
-jsxRuntimeExports.jsx("div", { className: "text-center pb-2 border-b border-gray-700", children: jsxRuntimeExports.jsx("h3", { className: "text-gray-300 font-bold uppercase tracking-widest text-xs", children: "Configuration" }) }),
-jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
-jsxRuntimeExports.jsxs("div", { children: [
-jsxRuntimeExports.jsx("div", { className: "text-sm font-bold text-gray-200", children: "Celebration Mode" }),
-jsxRuntimeExports.jsx("div", { className: "text-xs text-gray-500", children: "Show GTA banner on submission" })
-        ] }),
+    return jsxRuntimeExports.jsxs("div", { className: "space-y-5 animate-fade-in", children: [
+jsxRuntimeExports.jsx("div", { className: "text-center", children: jsxRuntimeExports.jsx("h3", { className: "text-[11px] font-bold tracking-widest uppercase text-gray-400", children: "Settings" }) }),
+jsxRuntimeExports.jsxs(Section, { title: "Appearance", children: [
 jsxRuntimeExports.jsx(
-          "button",
+          SettingRow,
           {
-            onClick: toggleOverlay,
-            className: `w-12 h-6 rounded-full transition-colors relative ${settings.overlayEnabled ? "bg-green-600" : "bg-gray-600"}`,
-            children: jsxRuntimeExports.jsx("div", { className: `w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${settings.overlayEnabled ? "left-7" : "left-1"}` })
+            title: "Celebration Mode",
+            desc: "Show GTA-style banner on submission",
+            children: jsxRuntimeExports.jsx(
+              Toggle,
+              {
+                enabled: settings.overlayEnabled,
+                onToggle: () => updateSettings({
+                  ...settings,
+                  overlayEnabled: !settings.overlayEnabled
+                })
+              }
+            )
           }
-        )
-      ] }),
-jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
-jsxRuntimeExports.jsxs("div", { children: [
-jsxRuntimeExports.jsx("div", { className: "text-sm font-bold text-gray-200", children: "Sound Effects" }),
-jsxRuntimeExports.jsx("div", { className: "text-xs text-gray-500", children: "Play Wasted/Mission Passed" })
-        ] }),
-jsxRuntimeExports.jsx(
-          "button",
+        ),
+jsxRuntimeExports.jsx(SettingRow, { title: "Sound Effects", desc: "Play Wasted / Mission Passed", children: jsxRuntimeExports.jsx(
+          Toggle,
           {
-            onClick: toggleSound,
-            className: `w-12 h-6 rounded-full transition-colors relative ${settings.soundEnabled ? "bg-green-600" : "bg-gray-600"}`,
-            children: jsxRuntimeExports.jsx("div", { className: `w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${settings.soundEnabled ? "left-7" : "left-1"}` })
+            enabled: settings.soundEnabled,
+            onToggle: () => updateSettings({
+              ...settings,
+              soundEnabled: !settings.soundEnabled
+            })
           }
-        )
+        ) })
       ] }),
-jsxRuntimeExports.jsxs("div", { children: [
-jsxRuntimeExports.jsx("div", { className: "text-sm font-bold text-gray-200 mb-1", children: "Visual Theme" }),
+jsxRuntimeExports.jsx(Section, { title: "Theme", children: jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
 jsxRuntimeExports.jsx(
           "select",
           {
             value: settings.theme,
-            onChange: handleThemeChange,
-            className: "w-full bg-gray-800 text-white border border-gray-600 rounded p-2 text-sm focus:border-green-500 outline-none transition-colors",
+            onChange: (e) => updateSettings({ ...settings, theme: e.target.value }),
+            className: "\r\n              w-full rounded-lg bg-gray-900\r\n              border border-gray-700\r\n              px-3 py-2 text-sm text-gray-200\r\n              focus:border-green-500 focus:outline-none\r\n              transition cursor-pointer\r\n            ",
             children: Object.entries(THEMES).map(([key, theme]) => jsxRuntimeExports.jsx("option", { value: key, children: theme.name }, key))
           }
         ),
-jsxRuntimeExports.jsx("div", { className: "text-xs text-gray-500 mt-1", children: "Sets the banner style and sound effects." })
-      ] }),
-jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-3 rounded text-[10px] text-gray-400 mt-4 border border-gray-700", children: "Note: Settings are saved automatically to your browser." })
+jsxRuntimeExports.jsx("p", { className: "text-[11px] text-gray-500", children: "Controls banner visuals and sound style" })
+      ] }) }),
+jsxRuntimeExports.jsx(
+        "div",
+        {
+          className: "\r\n          rounded-lg border border-gray-700\r\n          bg-gray-900/60 px-3 py-2\r\n          text-[10px] text-gray-400\r\n        ",
+          children: "Settings are saved automatically to your browser."
+        }
+      )
     ] });
+  }
+  function Section({
+    title,
+    children
+  }) {
+    return jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "\r\n        rounded-xl border border-gray-700\r\n        bg-gradient-to-br from-gray-900 to-gray-800\r\n        p-4 space-y-4\r\n      ",
+        children: [
+jsxRuntimeExports.jsx("div", { className: "text-xs font-semibold text-gray-300 uppercase tracking-wide", children: title }),
+          children
+        ]
+      }
+    );
+  }
+  function SettingRow({
+    title,
+    desc,
+    children
+  }) {
+    return jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between gap-3", children: [
+jsxRuntimeExports.jsxs("div", { children: [
+jsxRuntimeExports.jsx("div", { className: "text-sm font-medium text-gray-200", children: title }),
+jsxRuntimeExports.jsx("div", { className: "text-[11px] text-gray-500", children: desc })
+      ] }),
+      children
+    ] });
+  }
+  function Toggle({
+    enabled,
+    onToggle
+  }) {
+    return jsxRuntimeExports.jsx(
+      "button",
+      {
+        onClick: onToggle,
+        role: "switch",
+        "aria-checked": enabled,
+        className: `
+        relative inline-flex h-7 w-12 items-center rounded-full
+        transition-all duration-300 ease-out
+        focus:outline-none focus:ring-2 focus:ring-green-500/40
+        ${enabled ? "bg-gradient-to-r from-green-500 to-emerald-600 shadow-[0_0_10px_rgba(16,185,129,0.6)]" : "bg-gradient-to-r from-gray-700 to-gray-600"}
+      `,
+        children: jsxRuntimeExports.jsx(
+          "span",
+          {
+            className: `
+          absolute left-1 flex h-5 w-5 items-center justify-center
+          rounded-full bg-white text-[10px] font-bold
+          shadow-md
+          transition-transform duration-300 ease-out cursor-pointer
+          ${enabled ? "translate-x-5 text-green-600" : "translate-x-0 text-gray-400"}
+        `
+          }
+        )
+      }
+    );
   }
   function App() {
     const [isOpen, setIsOpen] = reactExports.useState(false);
@@ -12828,10 +12924,16 @@ jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-3 rounded text-[10px] t
       try {
         const questions = await getContestQuestions(contestSlug);
         const results = {};
-        await Promise.all(questions.map(async (q) => {
-          const events = await getReplayEvents(username, contestSlug, q.titleSlug);
-          results[q.titleSlug] = analyzeEvents(events);
-        }));
+        await Promise.all(
+          questions.map(async (q) => {
+            const events = await getReplayEvents(
+              username,
+              contestSlug,
+              q.titleSlug
+            );
+            results[q.titleSlug] = analyzeEvents(events);
+          })
+        );
         setAnalysisResults(results);
       } catch (err) {
         console.error(err);
@@ -12840,71 +12942,126 @@ jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-3 rounded text-[10px] t
     };
     if (!username) return null;
     if (!isOpen) return jsxRuntimeExports.jsx(FloatingButton, { onClick: () => setIsOpen(true) });
-    return jsxRuntimeExports.jsx("div", { className: "fixed bottom-6 right-6 z-50 flex flex-col items-end animate-fade-in-up font-sans", children: jsxRuntimeExports.jsxs("div", { className: "bg-gray-900 text-white w-96 rounded-xl shadow-2xl border border-gray-700 flex flex-col overflow-hidden max-h-[80vh]", children: [
-jsxRuntimeExports.jsxs("div", { className: "bg-gray-800 p-4 border-b border-gray-700 flex justify-between items-center shrink-0", children: [
+    return jsxRuntimeExports.jsx("div", { className: "fixed bottom-6 right-6 z-50 flex flex-col items-end animate-fade-in-up font-sans", children: jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "\r\n    w-[26rem] max-h-[80vh]\r\n    rounded-2xl\r\n    bg-gradient-to-br from-gray-900/90 to-gray-800/90\r\n    backdrop-blur-xl\r\n    border border-gray-700/60\r\n    shadow-[0_20px_60px_rgba(0,0,0,0.6)]\r\n    flex flex-col overflow-hidden\r\n  ",
+        children: [
+jsxRuntimeExports.jsxs("div", { className: "px-4 py-3 flex justify-between items-center shrink-0 border-b border-gray-700/60", children: [
 jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-full border border-gray-600 overflow-hidden", children: jsxRuntimeExports.jsx("img", { src: detectiveLogo, alt: "Logo", className: "w-full h-full object-cover" }) }),
-jsxRuntimeExports.jsxs("div", { children: [
-jsxRuntimeExports.jsx("h2", { className: "font-bold text-gray-100 text-sm leading-tight", children: "CodeLeet" }),
+jsxRuntimeExports.jsx("div", { className: "w-9 h-9 rounded-full overflow-hidden ring-2 ring-green-500/40 shadow-[0_0_12px_rgba(34,197,94,0.6)]", children: jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: detectiveLogo,
+                  alt: "Logo",
+                  className: "w-full h-full object-cover"
+                }
+              ) }),
+jsxRuntimeExports.jsxs("div", { className: "leading-tight flex flex-col", children: [
+jsxRuntimeExports.jsx("h2", { className: "font-xl mb-0 text-lg text-gray-100", children: "CodeLeet" }),
 jsxRuntimeExports.jsxs("p", { className: "text-xs text-green-400 font-mono", children: [
-              "@",
-              username
-            ] })
-          ] })
-        ] }),
-jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
-jsxRuntimeExports.jsx(
-            "button",
-            {
-              onClick: () => setActiveTab(activeTab === "scan" ? "settings" : "scan"),
-              className: `p-1.5 rounded transition-colors ${activeTab === "settings" ? "bg-green-600 text-white" : "text-gray-400 hover:text-white hover:bg-gray-700"}`,
-              title: "Settings",
-              children: jsxRuntimeExports.jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: [
-jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" }),
-jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z" })
+                  "@",
+                  username
+                ] })
               ] })
-            }
-          ),
-jsxRuntimeExports.jsx("button", { onClick: () => setIsOpen(false), className: "text-gray-400 hover:text-white hover:bg-gray-700 p-1 rounded", children: "✕" })
-        ] })
-      ] }),
-jsxRuntimeExports.jsx("div", { className: "p-4 overflow-y-auto flex-1", children: activeTab == "scan" ? jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
-jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-end mb-2", children: [
-jsxRuntimeExports.jsx("h3", { className: "text-xs font-bold text-gray-400 uppercase tracking-wider", children: "Contest History" }),
-            history.length > 0 && jsxRuntimeExports.jsxs("span", { className: "text-xs text-gray-500", children: [
-              history.length,
-              " found"
+            ] }),
+jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
+jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: () => setActiveTab(activeTab === "scan" ? "settings" : "scan"),
+                  title: "Settings",
+                  className: `
+  w-9 h-9 flex items-center justify-center rounded-lg transition cursor-pointer
+  ${activeTab === "settings" ? "bg-green-600 text-white shadow-[0_0_12px_rgba(34,197,94,0.6)]" : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"}
+`,
+                  children: jsxRuntimeExports.jsxs(
+                    "svg",
+                    {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      className: "h-5 w-5",
+                      fill: "none",
+                      viewBox: "0 0 24 24",
+                      stroke: "currentColor",
+                      children: [
+jsxRuntimeExports.jsx(
+                          "path",
+                          {
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            strokeWidth: 2,
+                            d: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                          }
+                        ),
+jsxRuntimeExports.jsx(
+                          "path",
+                          {
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            strokeWidth: 2,
+                            d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          }
+                        )
+                      ]
+                    }
+                  )
+                }
+              ),
+jsxRuntimeExports.jsx(
+                "button",
+                {
+                  onClick: () => setIsOpen(false),
+                  className: "\r\n  w-9 h-9 flex items-center justify-center rounded-lg\r\n  bg-gray-800 text-gray-300\r\n  hover:bg-red-600 hover:text-white\r\n  transition cursor-pointer\r\n",
+                  title: "Close",
+                  children: "✕"
+                }
+              )
             ] })
           ] }),
 jsxRuntimeExports.jsx(
-            "button",
+            "div",
             {
-              onClick: handleScan,
-              disabled: loading,
-              className: `w-full py-2 rounded font-bold text-sm transition-all shadow-lg 
-                  ${loading ? "bg-gray-700 text-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-500 text-white"}`,
-              children: loading ? "Processing..." : " Scan Last 5 Contests"
+              className: "\r\n    px-4 py-4 flex-1 overflow-y-auto\r\n    scrollbar-thin\r\n    scrollbar-thumb-gray-700/60\r\n    scrollbar-track-transparent\r\n  ",
+              children: activeTab === "scan" ? jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+jsxRuntimeExports.jsxs("div", { className: "mb-4 space-y-2", children: [
+jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
+jsxRuntimeExports.jsx("h3", { className: "text-[11px] font-medium text-gray-400 uppercase tracking-wider", children: "Contest History" }),
+                    history.length > 0 && jsxRuntimeExports.jsx("span", { className: "text-xs text-gray-500 font-mono", children: history.length })
+                  ] }),
+jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: handleScan,
+                      disabled: loading,
+                      className: `
+                w-full py-2 rounded-lg text-sm font-semibold transition
+                ${loading ? "bg-gray-800 text-gray-500 cursor-not-allowed" : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white shadow-[0_0_16px_rgba(16,185,129,0.6)] cursor-pointer"}
+              `,
+                      children: loading ? "Processing..." : "Scan Last 5 Contests"
+                    }
+                  )
+                ] }),
+jsxRuntimeExports.jsx("div", { className: "space-y-2", children: history.map((item) => jsxRuntimeExports.jsx(
+                  ContestCard,
+                  {
+                    contest: item.contest,
+                    ranking: item.ranking,
+                    isExpanded: expandedContest === item.contest.titleSlug,
+                    analyzing,
+                    results: analysisResults,
+                    onExpand: () => handleAnalyzeContest(item.contest.titleSlug)
+                  },
+                  item.contest.titleSlug
+                )) })
+              ] }) : jsxRuntimeExports.jsx(SettingsView, {})
             }
-          )
-        ] }),
-jsxRuntimeExports.jsx("div", { children: history.map((item) => jsxRuntimeExports.jsx(
-          ContestCard,
-          {
-            contest: item.contest,
-            ranking: item.ranking,
-            isExpanded: expandedContest === item.contest.titleSlug,
-            analyzing,
-            results: analysisResults,
-            onExpand: () => handleAnalyzeContest(item.contest.titleSlug)
-          },
-          item.contest.titleSlug
-        )) })
-      ] }) : jsxRuntimeExports.jsx(SettingsView, {}) }),
-jsxRuntimeExports.jsx("div", { className: "bg-gray-800 p-2 text-center border-t border-gray-700 text-[10px] text-gray-500", children: "v1.1" })
-    ] }) });
+          ),
+jsxRuntimeExports.jsx("div", { className: "px-3 py-2 text-center text-[10px] text-gray-500 border-t border-gray-800 font-mono", children: "CodeLeet • v1.1" })
+        ]
+      }
+    ) });
   }
-  const cssText = '.container{width:100%}@media(min-width:640px){.container{max-width:640px}}@media(min-width:768px){.container{max-width:768px}}@media(min-width:1024px){.container{max-width:1024px}}@media(min-width:1280px){.container{max-width:1280px}}@media(min-width:1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.bottom-6{bottom:1.5rem}.left-1{left:.25rem}.left-7{left:1.75rem}.right-6{right:1.5rem}.top-1{top:.25rem}.z-50{z-index:50}.z-\\[99999\\]{z-index:99999}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:.25rem}.mt-1{margin-top:.25rem}.mt-4{margin-top:1rem}.block{display:block}.inline{display:inline}.flex{display:flex}.h-10{height:2.5rem}.h-16{height:4rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.max-h-\\[80vh\\]{max-height:80vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-2\\/3{width:66.666667%}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-96{width:24rem}.w-full{width:100%}.max-w-\\[600px\\]{max-width:600px}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x: 1;--tw-scale-y: 1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-90{--tw-scale-x: .9;--tw-scale-y: .9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.animate-fade-in{animation:fadeIn .2s ease-out}@keyframes fadeInUp{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.animate-fade-in-up{animation:fadeInUp .3s ease-out}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.flex-col{flex-direction:column}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-l-2{border-left-width:2px}.border-t{border-top-width:1px}.border-gray-600{--tw-border-opacity: 1;border-color:rgb(75 85 99 / var(--tw-border-opacity, 1))}.border-gray-700{--tw-border-opacity: 1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-green-500{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.border-white\\/10{border-color:#ffffff1a}.bg-black\\/30{background-color:#0000004d}.bg-black\\/50{background-color:#00000080}.bg-black\\/60{background-color:#0009}.bg-blue-600{--tw-bg-opacity: 1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-600{--tw-bg-opacity: 1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity: 1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity: 1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity: 1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.object-cover{-o-object-fit:cover;object-fit:cover}.p-0{padding:0}.p-1{padding:.25rem}.p-1\\.5{padding:.375rem}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1\\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.py-0\\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-2{padding-bottom:.5rem}.pl-2{padding-left:.5rem}.pr-2{padding-right:.5rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.font-sans{font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"}.font-serif{font-family:ui-serif,Georgia,Cambria,Times New Roman,Times,serif}.text-5xl{font-size:3rem;line-height:1}.text-\\[10px\\]{font-size:10px}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-normal{letter-spacing:0em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-gray-100{--tw-text-opacity: 1;color:rgb(243 244 246 / var(--tw-text-opacity, 1))}.text-gray-200{--tw-text-opacity: 1;color:rgb(229 231 235 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity: 1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity: 1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-orange-400{--tw-text-opacity: 1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity: 1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-100{opacity:1}.shadow{--tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);--tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-2xl{--tw-shadow: 0 25px 50px -12px rgb(0 0 0 / .25);--tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);--tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.drop-shadow-\\[0_5px_5px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\]{--tw-drop-shadow: drop-shadow(0 5px 5px rgba(0,0,0,.8));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-sm{--tw-backdrop-blur: blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-500{transition-duration:.5s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}:host{font-family:sans-serif}.last\\:mb-0:last-child{margin-bottom:0}.hover\\:scale-110:hover{--tw-scale-x: 1.1;--tw-scale-y: 1.1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\\:border-gray-500:hover{--tw-border-opacity: 1;border-color:rgb(107 114 128 / var(--tw-border-opacity, 1))}.hover\\:bg-blue-500:hover{--tw-bg-opacity: 1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-700:hover{--tw-bg-opacity: 1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-800:hover{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.hover\\:bg-green-500:hover{--tw-bg-opacity: 1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.hover\\:text-green-400:hover{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.hover\\:text-white:hover{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.focus\\:border-green-500:focus{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}';
+  const cssText = '.container{width:100%}@media(min-width:640px){.container{max-width:640px}}@media(min-width:768px){.container{max-width:768px}}@media(min-width:1024px){.container{max-width:1024px}}@media(min-width:1280px){.container{max-width:1280px}}@media(min-width:1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.bottom-6{bottom:1.5rem}.left-0{left:0}.left-1{left:.25rem}.right-6{right:1.5rem}.top-0{top:0}.z-50{z-index:50}.z-\\[99999\\]{z-index:99999}.mb-0{margin-bottom:0}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.ml-2{margin-left:.5rem}.mt-1{margin-top:.25rem}.mt-4{margin-top:1rem}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.h-16{height:4rem}.h-5{height:1.25rem}.h-7{height:1.75rem}.h-9{height:2.25rem}.h-full{height:100%}.max-h-\\[80vh\\]{max-height:80vh}.w-1{width:.25rem}.w-12{width:3rem}.w-16{width:4rem}.w-5{width:1.25rem}.w-7{width:1.75rem}.w-9{width:2.25rem}.w-\\[26rem\\]{width:26rem}.w-full{width:100%}.max-w-\\[600px\\]{max-width:600px}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.translate-x-0{--tw-translate-x: 0px;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-5{--tw-translate-x: 1.25rem;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-100{--tw-scale-x: 1;--tw-scale-y: 1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-90{--tw-scale-x: .9;--tw-scale-y: .9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.animate-fade-in{animation:fadeIn .2s ease-out}@keyframes fadeInUp{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.animate-fade-in-up{animation:fadeInUp .3s ease-out}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.flex-col{flex-direction:column}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.space-y-0\\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.125rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.125rem * var(--tw-space-y-reverse))}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem * var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem * var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem * var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-5>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rounded{border-radius:.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-l{border-left-width:1px}.border-t{border-top-width:1px}.border-gray-700{--tw-border-opacity: 1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-gray-700\\/60{border-color:#37415199}.border-gray-800{--tw-border-opacity: 1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-green-500{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.border-white\\/10{border-color:#ffffff1a}.bg-black\\/40{background-color:#0006}.bg-black\\/60{background-color:#0009}.bg-blue-600\\/80{background-color:#2563ebcc}.bg-gray-800{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity: 1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-gray-900\\/60{background-color:#11182799}.bg-green-600{--tw-bg-opacity: 1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-b{background-image:linear-gradient(to bottom,var(--tw-gradient-stops))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-gray-700{--tw-gradient-from: #374151 var(--tw-gradient-from-position);--tw-gradient-to: rgb(55 65 81 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.from-gray-900{--tw-gradient-from: #111827 var(--tw-gradient-from-position);--tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.from-gray-900\\/90{--tw-gradient-from: rgb(17 24 39 / .9) var(--tw-gradient-from-position);--tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.from-green-400\\/80{--tw-gradient-from: rgb(74 222 128 / .8) var(--tw-gradient-from-position);--tw-gradient-to: rgb(74 222 128 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.from-green-500{--tw-gradient-from: #22c55e var(--tw-gradient-from-position);--tw-gradient-to: rgb(34 197 94 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.to-blue-500\\/80{--tw-gradient-to: rgb(59 130 246 / .8) var(--tw-gradient-to-position)}.to-emerald-600{--tw-gradient-to: #059669 var(--tw-gradient-to-position)}.to-gray-600{--tw-gradient-to: #4b5563 var(--tw-gradient-to-position)}.to-gray-800{--tw-gradient-to: #1f2937 var(--tw-gradient-to-position)}.to-gray-800\\/90{--tw-gradient-to: rgb(31 41 55 / .9) var(--tw-gradient-to-position)}.object-cover{-o-object-fit:cover;object-fit:cover}.p-0{padding:0}.p-4{padding:1rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\\.5{padding-top:.125rem;padding-bottom:.125rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pl-2{padding-left:.5rem}.pl-5{padding-left:1.25rem}.pr-2{padding-right:.5rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.font-sans{font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"}.font-serif{font-family:ui-serif,Georgia,Cambria,Times New Roman,Times,serif}.text-5xl{font-size:3rem;line-height:1}.text-\\[10px\\]{font-size:10px}.text-\\[11px\\]{font-size:11px}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-normal{letter-spacing:0em}.tracking-wide{letter-spacing:.025em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-gray-100{--tw-text-opacity: 1;color:rgb(243 244 246 / var(--tw-text-opacity, 1))}.text-gray-200{--tw-text-opacity: 1;color:rgb(229 231 235 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity: 1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity: 1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-green-600{--tw-text-opacity: 1;color:rgb(22 163 74 / var(--tw-text-opacity, 1))}.text-orange-400{--tw-text-opacity: 1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity: 1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-100{opacity:1}.shadow{--tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);--tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-2xl{--tw-shadow: 0 25px 50px -12px rgb(0 0 0 / .25);--tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-\\[0_0_10px_rgba\\(16\\,185\\,129\\,0\\.6\\)\\]{--tw-shadow: 0 0 10px rgba(16,185,129,.6);--tw-shadow-colored: 0 0 10px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-\\[0_0_12px_rgba\\(34\\,197\\,94\\,0\\.6\\)\\]{--tw-shadow: 0 0 12px rgba(34,197,94,.6);--tw-shadow-colored: 0 0 12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-\\[0_0_16px_rgba\\(16\\,185\\,129\\,0\\.6\\)\\]{--tw-shadow: 0 0 16px rgba(16,185,129,.6);--tw-shadow-colored: 0 0 16px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-\\[0_20px_60px_rgba\\(0\\,0\\,0\\,0\\.6\\)\\]{--tw-shadow: 0 20px 60px rgba(0,0,0,.6);--tw-shadow-colored: 0 20px 60px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-md{--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.ring-2{--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow, 0 0 #0000)}.ring-green-500\\/40{--tw-ring-color: rgb(34 197 94 / .4)}.drop-shadow-\\[0_5px_5px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\]{--tw-drop-shadow: drop-shadow(0 5px 5px rgba(0,0,0,.8));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-sm{--tw-backdrop-blur: blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-xl{--tw-backdrop-blur: blur(24px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-300{transition-duration:.3s}.duration-500{transition-duration:.5s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}.ease-out{transition-timing-function:cubic-bezier(0,0,.2,1)}:host{font-family:sans-serif}.hover\\:scale-110:hover{--tw-scale-x: 1.1;--tw-scale-y: 1.1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\\:bg-blue-500:hover{--tw-bg-opacity: 1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-700:hover{--tw-bg-opacity: 1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\\:bg-gray-800:hover{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.hover\\:bg-red-600:hover{--tw-bg-opacity: 1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.hover\\:bg-white\\/\\[0\\.03\\]:hover{background-color:#ffffff08}.hover\\:from-green-400:hover{--tw-gradient-from: #4ade80 var(--tw-gradient-from-position);--tw-gradient-to: rgb(74 222 128 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.hover\\:to-emerald-500:hover{--tw-gradient-to: #10b981 var(--tw-gradient-to-position)}.hover\\:text-white:hover{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\\:shadow-md:hover{--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.focus\\:border-green-500:focus{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.focus\\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\\:ring-2:focus{--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow, 0 0 #0000)}.focus\\:ring-green-500\\/40:focus{--tw-ring-color: rgb(34 197 94 / .4)}';
   function attachInterceptor() {
     const realWindow = typeof unsafeWindow !== "undefined" ? unsafeWindow : window;
     const originalFetch = realWindow.fetch;

@@ -34,6 +34,34 @@ Click the link below to install the script directly from this repository. Your s
 
 **[CLICK HERE TO INSTALL SCRIPT](https://github.com/pudeesht/codeleet/raw/main/dist/leetcode-detective.user.js)**
 
+### Step 3: Enable Browser Developer Mode
+
+#### Google Chrome / Microsoft Edge / Brave
+
+1. Open the browser.
+
+2. Go to: ```chrome://extensions/```
+
+3. In the top-right corner, toggle Developer mode → ON
+
+4. Developer options should now appear (e.g., “Load unpacked”).
+
+### Step 4: Enable “Allow User Scripts” in Tampermonkey
+
+1. This step is required in all browsers.
+
+2. Click the **Tampermonkey** icon in the browser toolbar  
+   **OR**  
+   Go to `chrome://extensions/`
+
+
+3. Go to the **Tampermonkey** extension  
+   → Select **Manage extension**
+4. Scroll Down 
+
+5. Find Allow User Scripts Enable it
+
+
 *(Note: If the link above does not work, navigate to the `dist` folder in this repository, click `leetcode-detective.user.js`, and view the "Raw" file).*
 
 ## Usage
@@ -56,32 +84,16 @@ This tool does not work with 100% accuracy, there may be cases where someone wri
 
 I will be working to improve this, but as of now the analysis is just probablistic based, it should not be taken as absolute proof of anything!
 
+##  Tech Stack
 
-## Development
+This project is built with:
 
-This project is built using React, TypeScript, Vite, and Tailwind CSS.
+- **React**
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS**
 
-This is currently work in progress, expect new features soon!
-
-### Prerequisites
-*   Node.js (v16 or higher)
-*   npm
-
-### Setup
-1.  Clone the repository.
-2.  Install dependencies:
-    ```bash
-    npm install
-    ```
-3.  Start the development server:
-    ```bash
-    npm run dev
-    ```
-    This will provide a localhost link that you can install in Tampermonkey for hot-reloading.
+>  **Work in Progress**  
+> This project is currently under active development. New features will be added soon.
 
 
-(This hot realoading was giving me issues, so I would rather prefer to use 'npm run build' and load that dist version directly to tapermonkey)
-### Building
-To generate the final userscript file:
-```bash
-npm run build
