@@ -88,11 +88,21 @@ function App() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end animate-fade-in-up font-sans">
-      <div className="bg-gray-900/90 text-white w-[26rem] rounded-xl flex flex-col overflow-hidden max-h-[80vh] backdrop-blur-lg">
+      <div
+        className="
+    w-[26rem] max-h-[80vh]
+    rounded-2xl
+    bg-gradient-to-br from-gray-900/90 to-gray-800/90
+    backdrop-blur-xl
+    border border-gray-700/60
+    shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+    flex flex-col overflow-hidden
+  "
+      >
         {/* Header */}
-        <div className="px-4 py-3 flex justify-between items-center shrink-0">
+        <div className="px-4 py-3 flex justify-between items-center shrink-0 border-b border-gray-700/60">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full overflow-hidden">
+            <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-green-500/40 shadow-[0_0_12px_rgba(34,197,94,0.6)]">
               <img
                 src={detectiveLogo}
                 alt="Logo"
@@ -112,12 +122,14 @@ function App() {
                 setActiveTab(activeTab === "scan" ? "settings" : "scan")
               }
               title="Settings"
-              className={`w-9 h-9 flex items-center justify-center rounded-md transition cursor-pointer
-      ${
-        activeTab === "settings"
-          ? "bg-green-700 text-white"
-          : "text-white hover:text-white hover:bg-gray-800 bg-green-500"
-      }`}
+              className={`
+  w-9 h-9 flex items-center justify-center rounded-lg transition cursor-pointer
+  ${
+    activeTab === "settings"
+      ? "bg-green-600 text-white shadow-[0_0_12px_rgba(34,197,94,0.6)]"
+      : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+  }
+`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +156,12 @@ function App() {
             {/* Close */}
             <button
               onClick={() => setIsOpen(false)}
-              className="w-9 h-9 flex items-center justify-center rounded-md text-white hover:text-white hover:bg-red-800 bg-red-500 transition cursor-pointer"
+              className="
+  w-9 h-9 flex items-center justify-center rounded-lg
+  bg-gray-800 text-gray-300
+  hover:bg-red-600 hover:text-white
+  transition cursor-pointer
+"
               title="Close"
             >
               ✕
@@ -153,7 +170,14 @@ function App() {
         </div>
 
         {/* Content */}
-        <div className="px-4 pb-4 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-gray-700/50 scrollbar-track-transparent">
+        <div
+          className="
+    px-4 py-4 flex-1 overflow-y-auto
+    scrollbar-thin
+    scrollbar-thumb-gray-700/60
+    scrollbar-track-transparent
+  "
+        >
           {activeTab === "scan" ? (
             <>
               {/* Contest Scanner */}
@@ -172,12 +196,14 @@ function App() {
                 <button
                   onClick={handleScan}
                   disabled={loading}
-                  className={`w-full py-2 rounded-md text-sm font-medium transition cursor-pointer
+                  className={`
+                w-full py-2 rounded-lg text-sm font-semibold transition
                 ${
                   loading
                     ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-500 text-white"
-                }`}
+                    : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white shadow-[0_0_16px_rgba(16,185,129,0.6)] cursor-pointer"
+                }
+              `}
                 >
                   {loading ? "Processing..." : "Scan Last 5 Contests"}
                 </button>
@@ -206,7 +232,7 @@ function App() {
         </div>
 
         {/* Footer */}
-        <div className="px-3 py-2 text-center text-[10px] text-gray-500 font-mono">
+        <div className="px-3 py-2 text-center text-[10px] text-gray-500 border-t border-gray-800 font-mono">
           CodeLeet • v1.1
         </div>
       </div>
